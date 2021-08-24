@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div id="container">
+        <form class="form">
+            <h1>Register</h1>
+            <div id="usernameDiv" class="inputDiv">
+                <i class="fa fa-user icon"></i>
+                <input type="text" id="usernameInput" placeholder="Username" required>
+            </div>
+            <div id="emailDiv" class="inputDiv">
+                <i class="fa fa-envelope icon"></i>
+                <input type="email" id="emailInput" placeholder="Enter your email address" required>
+                <p hidden>your email should contain (@ and . )</p>
+            </div>
+            <div id="passwordDiv" class="inputDiv">
+                <i class="fa fa-lock icon"></i>
+                <input type="password" id="passwordInput" placeholder="Enter your password" required>
+                <p hidden>Use at least 8 characters and must be Uppercase letters and numbers</p>
+            </div>
+
+            <button id="registerBtn">Register</button>
+        </form>
+        <div id="welcom">
+            <h3>Glade To See You</h3>
+            <p>Register to join with your journey in our site...</p>
+        </div>
+
+    </div>
+    <script src="./script.js"></script>
+</body>
+
+</html>

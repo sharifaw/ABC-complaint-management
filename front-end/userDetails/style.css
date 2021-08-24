@@ -1,0 +1,65 @@
+body {
+    background-color: lightblue;
+}
+
+header {
+    background-color: red;
+    width: 75%;
+    margin: 0 auto;
+}
+
+#websiteLogo {
+    margin-left: 50%;
+}
+
+#userInfo {
+    margin-left: 83%;
+    margin-top: -3%;
+}
+
+main {
+    width: 75%;
+    background-color: wheat;
+    margin: 0 auto;
+    margin-top: 0px;
+    margin-top: 0px;
+    padding-top: 8px;
+}
+
+#divContainer {
+    padding: 17px;
+    font-size: 15px;
+}
+
+#username {
+    margin-left: 46%;
+}
+
+.complaint {
+    border: 3px solid sandybrown;
+    padding: 5px;
+    margin: 10px;
+}
+#divContainer p{
+    margin: 0 auto;
+}
+
+#divContainer a:visited,a, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color: Black;
+}
+#divContainer a:focus{
+    color:blue;
+}
+.complaint h3{
+    display: inline-block;
+}
+#lastName{
+    margin-left: 155px;
+}
+#gender{
+    margin-left: 186px;
+}
+#subject p {
+    display: inline;
+}

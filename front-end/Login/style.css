@@ -1,0 +1,131 @@
+
+body{
+    background-image: url("https://wallpaper.dog/large/4640.jpg");
+    background-size: 100%;
+}
+#container{
+    display:flex;
+    flex-flow: row;
+    margin: auto;
+    margin-top: 10%; 
+    background:lightblue;
+    width: 65%;
+    height: 384px;
+    box-shadow: 0 0 20px 10px lightblue;
+}
+.form{
+    text-align: center;
+    width:412px ;
+    margin-top: 30px;
+    font-family:'Apple Chancery', cursive;
+    font-size:large;
+    height:0;
+}
+#welcom{
+    width:412px ;
+    background-image: url("https://eskipaper.com/images/light-blue-backgrounds-9.jpg");
+    background-size: 900px;
+    text-align: center;
+    font-family:'Apple Chancery', cursive;
+    font-size:xx-large;
+}
+.form h1{
+    text-align: center;
+}
+.inputDiv input{
+    padding: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+    border-radius: 5px;
+    display: block;
+    margin-left: 25%;
+
+}
+.inputDiv i{
+    position: absolute;
+    margin-top: 7px;
+    margin-left: -7%;
+
+}
+button{
+    display: block;
+    margin: auto;
+}
+button:hover{
+    background-color: #112444;
+}
+button:focus{
+    color: rgb(3, 61, 136);
+}
+
+#welcom p{
+    font-size: x-large;
+    margin-top: 0px;
+}
+h3{
+    margin-top: 30%;
+    margin-bottom: 0px;
+    
+
+}
+button{
+    padding: 5px 10px;
+    font-family:'Apple Chancery', cursive;
+    font-size:medium;
+    background-color: rgb(3, 61, 136);
+    color: white;
+    border: none;
+    border-radius: 2px;
+}
+form{
+    background-color: lightblue;
+    box-shadow: 0 0 20px 10px lightblue;
+    width:32.5%;
+    margin:auto;
+    justify-content: center;
+    height: 400px;
+    padding: 5px;
+    margin-top: 10%; 
+}
+.form input{
+    padding: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+    border-radius: 5px;
+    display: block;
+    margin-left: 25%;
+}
+label{
+    margin-left: -140px;
+    font-size: small;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#email{
+    margin-left: -170px;
+}
+#sub{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#home{
+    font-family: 'Permanent Marker', cursive;
+    color: wheat;
+    text-align: center;
+    margin-top: 20%;
+    font-size: 50px;
+    margin-bottom: 6px;
+}
+
+span{
+    color:rgb(14, 183, 240);
+}
+#usericon{
+    color:rgb(14, 183, 240);
+   font-size: xx-large;
+   margin-left: 43%;
+   margin-top: 20px;
+}
+#wrongMessage{
+    color: red;
+}
