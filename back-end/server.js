@@ -163,6 +163,7 @@ app.post('/abc/login', parseBody, function (request, response) {
     let email = request.body.email;
     let password = request.body.password;
 
+
     // check if the string is empty 
     if (!email || !password) {
         response.status(400).send("Please fill your Email and Password");
@@ -170,36 +171,72 @@ app.post('/abc/login', parseBody, function (request, response) {
     }
 
     // check if the email is valid
-    connection.query("SELECT * FROM user_register WHERE email=?", [email], function (err, rows) {
-        if (err) {
-            response.status(500).send(err);
-            return;
-        }
-        var user = rows[0];
-
-        if (!user) {
-            response.status(401).send("email is wrong");
-            return;
-        }
-
-        // compare the newest password with the database password
-        bcrypt.compare(password, user.password, function (err, result) {
+    if (email.includes("@abc.com")) {
+        connection.query(`SELECT * FROM employees inner join admin_register 
+        on employees.id = admin_register.employee_id WHERE email=?`,
+         [email], function (err, rows) {
             if (err) {
-                response.status(500).send("Auth Faill");
+                response.status(500).send(err);
+                return;
+            }
+            var user = rows[0];
+
+            if (!user) {
+                response.status(401).send("email is wrong");
                 return;
             }
 
-            if (result == true) {
-                // createToken
-                const token = createToken(user.id, user.email);
-                response.status(200).send({ email: user.email, username: user.username, token: token });
+            // compare the newest password with the database password
+            bcrypt.compare(password, user.password, function (err, result) {
+                if (err) {
+                    response.status(500).send("Auth Faill");
+                    return;
+                }
+
+                if (result == true) {
+                    // createToken
+                    const token = createToken(user.id, user.email);
+                    response.status(200).send({ email: user.email, username: user.name, token: token });
+                }
+                else {
+                    response.status(401).send("Wrong password");
+                }
+
+            });
+        });
+    }
+    else {
+        connection.query("SELECT * FROM user_register WHERE email=?", [email], function (err, rows) {
+            if (err) {
+                response.status(500).send(err);
+                return;
             }
-            else {
-                response.status(401).send("Wrong password");
+            var user = rows[0];
+
+            if (!user) {
+                response.status(401).send("email is wrong");
+                return;
             }
 
+            // compare the newest password with the database password
+            bcrypt.compare(password, user.password, function (err, result) {
+                if (err) {
+                    response.status(500).send("Auth Faill");
+                    return;
+                }
+
+                if (result == true) {
+                    // createToken
+                    const token = createToken(user.id, user.email);
+                    response.status(200).send({ email: user.email, username: user.username, token: token });
+                }
+                else {
+                    response.status(401).send("Wrong password");
+                }
+
+            });
         });
-    });
+    }
 });
 
 app.post('/abc/form', parseBody, function (request, response) {
