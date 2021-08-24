@@ -43,11 +43,20 @@ signInBtn.addEventListener("click", (event) => {
             }
         })
         .then(result => {
+            
             if (result) {
+                if(result.email.includes("@abc.com")){
+                    localStorage.token = result.token;
+                    localStorage.email = result.email;
+                    localStorage.username = result.username;
+                    window.location.href = "../adminPage/index.html";
+                }
+                else{
                 localStorage.token = result.token;
                 localStorage.email = result.email;
                 localStorage.username = result.username;
                 window.location.href = "../user-dashboard/index.html";
+            }
             }
             console.log('token ', localStorage.getItem("token"));
         })
