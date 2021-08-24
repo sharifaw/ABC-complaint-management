@@ -72,6 +72,93 @@ app.post('/abc/register', parseBody, (request, response) => {
     });
 });
 
+
+app.post('/abc/adminregister', parseBody, (request, response) => {
+    let username = request.body.username;
+    let email = request.body.email;
+    let password = request.body.password;
+    let employeeNumber = request.body.employee_number;
+
+
+    // if one of the values is empty
+    if (!employeeNumber || !username || !email || !password) {
+        response.status(400).send("fill your information");
+        return;
+    }
+
+
+    connection.query("SELECT employee_number from employees where employee_number = ?",
+        [employeeNumber], function (err, rows) {
+            if (err) {
+                response.status(500).send(err);
+                return;
+            }
+            if (rows.length == 0) {
+                return response.status(402).send("incorrect employee number");
+            }
+
+            connection.query('SELECT email,id FROM  `employees` WHERE email=?',
+                [email], (err, array) => {
+                    if (err) {
+                        response.status(500).send(err);
+                        return;
+                    }
+
+                    // to check if the mail contain the validate characters
+                    if (!emailValidate.validate(email)) {
+                        response.status(401).send(emailValidate.validate(email, { list: true }))
+                        return;
+                    }
+
+
+                    if (array.length == 0) {
+                        response.status(402).send("Email doesn't exist");
+                        return;
+                    }
+
+                    // to check if the password contain the validate characters
+                    if (!passValidate.validate(password)) {
+                        response.status(401).send(passValidate.validate(password, { list: true }));
+                        return;
+                    }
+
+                    // to crypt the password
+                    bcrypt.hash(password, 10, (err, hash) => {
+                        if (err) {
+                            response.status(500).send(err);
+                            return;
+                        }
+                        connection.query("SELECT employee_id from admin_register where employee_id =?",
+                            [array[0].id], function (err, rows) {
+                                if (err) {
+                                    return response.status(500).send(err);
+                                }
+
+                                if (array.length > 0) {
+                                    response.status(402).send("employee_id is already in use");
+                                    return;
+                                }
+
+
+
+
+                                // to add the user info
+                                connection.query('INSERT INTO `admin_register`(employee_id,password) VALUES(?,?)', [array[0].id, hash],
+                                    (err, result) => {
+                                        if (err) {
+                                            response.status(500).send(err.message);
+                                            return;
+                                        }
+                                        // creating token 
+                                        const token = createToken(result.insertId, email);
+                                        response.status(201).send({ token, email, username });
+                                    });
+                            })
+                    });
+                });
+        });
+})
+
 app.post('/abc/login', parseBody, function (request, response) {
     let email = request.body.email;
     let password = request.body.password;
@@ -169,7 +256,7 @@ app.get('/abc/tokenauth', parseBody, function (request, response) {
     // verify the token
     jwt.verify(token, 'jsfashlaekhe', function (err, decoded) {
         if (err) {
-            response.status(500).send(err);
+            return response.status(500).send(err);
         }
         console.log(decoded);
         response.status(200).send(decoded);
@@ -181,11 +268,30 @@ app.get('/abc/tokenauth', parseBody, function (request, response) {
 app.get("/abc/customercomplaints", parseBody, function (request, response) {
     connection.query("select * from user_form", function (err, rows) {
         if (err) {
-            response.status(500).send(err);
+            return response.status(500).send(err);
         }
         response.status(200).send(rows);
     })
 
+})
+
+app.put("/abc/forms/statusupdate", parseBody, function (request, response) {
+    const form_id = request.body.id;
+    const status = request.body.status;
+
+    connection.query("select status from user_form where id = ?", [form_id], function (err, rows) {
+        if (err) {
+            return response.status(500).send(err);
+        }
+
+        connection.query("update user_form set status = ? where id = ?", [status, form_id], function (err, rows) {
+            if (err) {
+                return response.status(500).send(err);
+            }
+            response.status(200).send(rows);
+        })
+
+    })
 })
 
 app.listen(port, () => {
